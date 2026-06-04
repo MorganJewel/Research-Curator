@@ -78,7 +78,7 @@ export class ResearchPacket {
     if (n === 0) {
       container.innerHTML = `
         <div class="empty-state">
-          <div class="empty-state__icon">📖</div>
+          <div class="empty-state__icon">Research Curator</div>
           <div class="empty-state__title">Your research packet is empty</div>
           <div class="empty-state__subtitle">
             Enter a topic in the panel on the left and click
