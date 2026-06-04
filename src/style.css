@@ -657,6 +657,48 @@ textarea::placeholder {
   margin: 0 auto;
 }
 
+/* ── Result Sections ── */
+
+.result-section {
+  margin-bottom: 2.5rem;
+}
+
+.result-section__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(255,255,255,0.04);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 1rem;
+}
+
+.result-section__icon {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.result-section__query {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.result-section__count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.result-section__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 /* ── Export Button ── */
 
 .export-btn {

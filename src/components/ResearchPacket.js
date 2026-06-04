@@ -1,6 +1,7 @@
 /**
  * ResearchPacket — the "living packet" of curated research cards.
- * Renders all saved cards, handles deletion, and shows search progress.
+ * Renders cards grouped by the search query that surfaced them,
+ * handles deletion, start over, and shows search progress.
  */
 
 import { renderResultCard } from './ResultCard.js';
@@ -14,19 +15,11 @@ export class ResearchPacket {
     this.render();
   }
 
-  /**
-   * Update the displayed packet.
-   * @param {Array} packet - Full array of card objects
-   */
   setPacket(packet) {
     this.packet = packet;
     this.renderCards();
   }
 
-  /**
-   * Append new cards (used when search results stream in).
-   * @param {Array} newCards
-   */
   addCards(newCards) {
     this.packet = [...newCards, ...this.packet.filter(
       (c) => !newCards.some((n) => n.id === c.id)
@@ -71,14 +64,14 @@ export class ResearchPacket {
 
     if (actionsEl) {
       actionsEl.innerHTML = n > 0 ? `
-        <button class="btn-secondary" id="clear-all-btn" title="Remove all sources">
-          Clear all
+        <button class="btn-secondary" id="start-over-btn" title="Clear everything and start fresh">
+          Start Over
         </button>
       ` : '';
 
-      const clearBtn = actionsEl.querySelector('#clear-all-btn');
-      if (clearBtn) {
-        clearBtn.addEventListener('click', () => this.handleClearAll());
+      const startOverBtn = actionsEl.querySelector('#start-over-btn');
+      if (startOverBtn) {
+        startOverBtn.addEventListener('click', () => this.handleStartOver());
       }
     }
 
@@ -96,7 +89,30 @@ export class ResearchPacket {
       return;
     }
 
-    container.innerHTML = this.packet.map(renderResultCard).join('');
+    // Group cards by query
+    const groups = new Map();
+    for (const card of this.packet) {
+      const key = card.query || 'General';
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(card);
+    }
+
+    let html = '';
+    for (const [query, cards] of groups) {
+      html += `
+        <div class="result-section">
+          <div class="result-section__header">
+            <span class="result-section__icon">🔍</span>
+            <span class="result-section__query">${escapeHtml(query)}</span>
+            <span class="result-section__count">${cards.length} source${cards.length === 1 ? '' : 's'}</span>
+          </div>
+          <div class="result-section__cards">
+            ${cards.map(renderResultCard).join('')}
+          </div>
+        </div>
+      `;
+    }
+    container.innerHTML = html;
 
     // Bind delete handlers
     container.querySelectorAll('[data-action="delete"]').forEach((btn) => {
@@ -111,8 +127,8 @@ export class ResearchPacket {
     this.onPacketChange(updated);
   }
 
-  handleClearAll() {
-    if (!confirm(`Remove all ${this.packet.length} sources from your research packet?`)) return;
+  handleStartOver() {
+    if (!confirm('Clear your entire research packet and start fresh?')) return;
     clearPacket();
     this.packet = [];
     this.renderCards();
@@ -139,27 +155,18 @@ export class ResearchPacket {
     const queriesEl = this.container.querySelector('#progress-queries');
     if (!queriesEl) return;
     queriesEl.innerHTML = queries
-      .map(
-        (q, i) => `
+      .map((q, i) => `
         <li class="search-progress__query" data-query-index="${i}">
           <span class="query-dot"></span>
           <span>${escapeHtml(q)}</span>
         </li>
-      `
-      )
+      `)
       .join('');
   }
 
   setQueryStatus(index, status) {
-    // status: 'active' | 'done' | ''
     const el = this.container.querySelector(`[data-query-index="${index}"]`);
-    if (el) {
-      el.className = `search-progress__query ${status}`;
-      const dot = el.querySelector('.query-dot');
-      if (dot && status === 'done') {
-        // show a checkmark character in the dot's space
-      }
-    }
+    if (el) el.className = `search-progress__query ${status}`;
   }
 
   hideProgress() {

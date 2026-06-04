@@ -23,7 +23,7 @@ const appEl = document.getElementById('app');
 appEl.innerHTML = `
   <header class="app-header">
     <h1>Research Curator</h1>
-    <span class="tagline">A dramaturg's research companion</span>
+    <span class="tagline">AI-powered research for playwrights</span>
     <div style="flex:1"></div>
     <div id="export-btn-mount"></div>
   </header>
