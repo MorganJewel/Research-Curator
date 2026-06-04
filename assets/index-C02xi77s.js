@@ -1,4 +1,4 @@
-(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const n of a.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&r(n)}).observe(document,{childList:!0,subtree:!0});function t(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function r(i){if(i.ep)return;i.ep=!0;const a=t(i);fetch(i.href,a)}})();const x="research_curator_packet",T="research_curator_settings";function k(){try{const s=localStorage.getItem(x);return s?JSON.parse(s):[]}catch{return[]}}function C(s){try{localStorage.setItem(x,JSON.stringify(s))}catch(e){console.warn("Research Curator: Could not save to localStorage",e)}}function D(s){const e=k();if(e.some(r=>r.url===s.url))return e;const t=[s,...e];return C(t),t}function I(s){const t=k().filter(r=>r.id!==s);return C(t),t}function F(){localStorage.removeItem(x)}function j(){try{const s=localStorage.getItem(T);return s?JSON.parse(s):null}catch{return null}}function M(s){try{localStorage.setItem(T,JSON.stringify(s))}catch{}}const w=[{id:"academic",label:"Academic Articles",icon:"📄"},{id:"documentary",label:"Documentary / Video",icon:"🎥"},{id:"podcast",label:"Podcasts",icon:"🎙️"},{id:"archival",label:"Archival / Primary",icon:"📌"}];class H{constructor(e,{onSearch:t}){this.container=e,this.onSearch=t;const r=j();this.topic=(r==null?void 0:r.topic)||"",this.subtopics=(r==null?void 0:r.subtopics)||[],this.activeFilters=(r==null?void 0:r.activeFilters)||w.map(i=>i.id),this.depth=(r==null?void 0:r.depth)||"quick",this.render(),this.bindEvents()}render(){this.container.innerHTML=`
+(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const a of i)if(a.type==="childList")for(const n of a.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&r(n)}).observe(document,{childList:!0,subtree:!0});function t(i){const a={};return i.integrity&&(a.integrity=i.integrity),i.referrerPolicy&&(a.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?a.credentials="include":i.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function r(i){if(i.ep)return;i.ep=!0;const a=t(i);fetch(i.href,a)}})();const x="research_curator_packet",T="research_curator_settings";function k(){try{const s=localStorage.getItem(x);return s?JSON.parse(s):[]}catch{return[]}}function C(s){try{localStorage.setItem(x,JSON.stringify(s))}catch(e){console.warn("Research Curator: Could not save to localStorage",e)}}function D(s){const e=k();if(e.some(r=>r.url===s.url))return e;const t=[s,...e];return C(t),t}function I(s){const t=k().filter(r=>r.id!==s);return C(t),t}function j(){localStorage.removeItem(x)}function F(){try{const s=localStorage.getItem(T);return s?JSON.parse(s):null}catch{return null}}function M(s){try{localStorage.setItem(T,JSON.stringify(s))}catch{}}const w=[{id:"academic",label:"Academic Articles",icon:"📄"},{id:"documentary",label:"Documentary / Video",icon:"🎥"},{id:"podcast",label:"Podcasts",icon:"🎙️"},{id:"archival",label:"Archival / Primary",icon:"📌"}];class H{constructor(e,{onSearch:t}){this.container=e,this.onSearch=t;const r=F();this.topic=(r==null?void 0:r.topic)||"",this.subtopics=(r==null?void 0:r.subtopics)||[],this.activeFilters=(r==null?void 0:r.activeFilters)||w.map(i=>i.id),this.depth=(r==null?void 0:r.depth)||"quick",this.render(),this.bindEvents()}render(){this.container.innerHTML=`
       <h2>New Research Query</h2>
 
       <div class="input-group">
@@ -66,7 +66,7 @@
       <div class="result-card__header">
         <div class="result-card__title">
           <a href="${S(s.url)}" target="_blank" rel="noopener noreferrer">
-            ${f(s.title)}
+            ${y(s.title)}
           </a>
         </div>
         <div class="result-card__delete">
@@ -76,34 +76,34 @@
         </div>
       </div>
 
-      <div class="result-card__url">${f(r)}</div>
+      <div class="result-card__url">${y(r)}</div>
 
       <div class="result-card__badges">
-        <span class="badge badge--source">${t} ${f(s.sourceType)}</span>
+        <span class="badge badge--source">${t} ${y(s.sourceType)}</span>
         <span class="badge ${e.cssClass}" title="${S(e.description)}">
-          ${e.emoji} ${f(e.label)}
+          ${e.emoji} ${y(e.label)}
         </span>
       </div>
 
       ${s.reliabilityNote?`
         <div class="result-card__reliability-note">
-          ${f(s.reliabilityNote)}
+          ${y(s.reliabilityNote)}
         </div>
       `:""}
 
       ${s.relevanceNote?`
         <div class="result-card__relevance-note">
-          ${f(s.relevanceNote)}
+          ${y(s.relevanceNote)}
         </div>
       `:""}
 
       ${s.query?`
         <div class="result-card__query-label" title="From query: ${S(s.query)}">
-          via: ${f(Y(s.query,40))}
+          via: ${y(Y(s.query,40))}
         </div>
       `:""}
     </div>
-  `}function f(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function S(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function Y(s,e){return s.length>e?s.slice(0,e)+"…":s}class z{constructor(e,{onPacketChange:t}){this.container=e,this.onPacketChange=t,this.packet=[],this.render()}setPacket(e){this.packet=e,this.renderCards()}addCards(e){this.packet=[...e,...this.packet.filter(t=>!e.some(r=>r.id===t.id))],this.renderCards()}render(){this.container.innerHTML=`
+  `}function y(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function S(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function Y(s,e){return s.length>e?s.slice(0,e)+"…":s}class z{constructor(e,{onPacketChange:t}){this.container=e,this.onPacketChange=t,this.packet=[],this.render()}setPacket(e){this.packet=e,this.renderCards()}addCards(e){this.packet=[...e,...this.packet.filter(t=>!e.some(r=>r.id===t.id))],this.renderCards()}render(){this.container.innerHTML=`
       <div class="packet-section">
         <div class="packet-header">
           <div>
@@ -133,18 +133,17 @@
             <em>Curate Sources</em> to begin building your research packet.
           </div>
         </div>
-      `;return}const a=new Map;for(const o of this.packet){const c=o.query||"General";a.has(c)||a.set(c,[]),a.get(c).push(o)}let n="";for(const[o,c]of a)n+=`
+      `;return}const a=new Map;for(const o of this.packet){const c=o.thematicSection||"General Research";a.has(c)||a.set(c,[]),a.get(c).push(o)}let n="";for(const[o,c]of a)n+=`
         <div class="result-section">
           <div class="result-section__header">
-            <span class="result-section__icon">🔍</span>
-            <span class="result-section__query">${q(o)}</span>
+            <span class="result-section__title">${q(o)}</span>
             <span class="result-section__count">${c.length} source${c.length===1?"":"s"}</span>
           </div>
           <div class="result-section__cards">
             ${c.map(J).join("")}
           </div>
         </div>
-      `;e.innerHTML=n,e.querySelectorAll('[data-action="delete"]').forEach(o=>{o.addEventListener("click",()=>this.handleDelete(o.dataset.id))})}handleDelete(e){const t=I(e);this.packet=t,this.renderCards(),this.onPacketChange(t)}handleStartOver(){confirm("Clear your entire research packet and start fresh?")&&(F(),this.packet=[],this.renderCards(),this.onPacketChange([]))}showProgress(e="Generating search queries…"){const t=this.container.querySelector("#search-progress"),r=this.container.querySelector("#progress-title"),i=this.container.querySelector("#progress-queries");t&&t.classList.add("visible"),r&&(r.textContent=e),i&&(i.innerHTML="")}updateProgressTitle(e){const t=this.container.querySelector("#progress-title");t&&(t.textContent=e)}setProgressQueries(e){const t=this.container.querySelector("#progress-queries");t&&(t.innerHTML=e.map((r,i)=>`
+      `;e.innerHTML=n,e.querySelectorAll('[data-action="delete"]').forEach(o=>{o.addEventListener("click",()=>this.handleDelete(o.dataset.id))})}handleDelete(e){const t=I(e);this.packet=t,this.renderCards(),this.onPacketChange(t)}handleStartOver(){confirm("Clear your entire research packet and start fresh?")&&(j(),this.packet=[],this.renderCards(),this.onPacketChange([]))}showProgress(e="Generating search queries…"){const t=this.container.querySelector("#search-progress"),r=this.container.querySelector("#progress-title"),i=this.container.querySelector("#progress-queries");t&&t.classList.add("visible"),r&&(r.textContent=e),i&&(i.innerHTML="")}updateProgressTitle(e){const t=this.container.querySelector("#progress-title");t&&(t.textContent=e)}setProgressQueries(e){const t=this.container.querySelector("#progress-queries");t&&(t.innerHTML=e.map((r,i)=>`
         <li class="search-progress__query" data-query-index="${i}">
           <span class="query-dot"></span>
           <span>${q(r)}</span>
@@ -233,6 +232,7 @@ Return ONLY a JSON object with exactly these keys:
 - reliabilityTier: one of "peer-reviewed", "scholarly", "documentary", "podcast", "primary", "caution"
 - reliabilityNote: one sentence explaining the reliability assessment
 - relevanceNote: 1–2 sentences on why this source is relevant to the playwright's topic
+- thematicSection: a short (2–5 word) thematic label grouping this source by subject area (e.g. "Legal History", "Mechanical Design", "Public Reaction", "Corporate Decisions"). Be consistent — sources about the same theme should get the same label.
 
 No prose outside the JSON.`,r=`Research topic: "${e}"
 
@@ -241,7 +241,7 @@ Title: ${s.title}
 URL: ${s.link}
 Snippet: ${s.snippet||"(no snippet available)"}
 
-Evaluate this source and return the JSON object.`,i=await L([{role:"system",content:t},{role:"user",content:r}],.2,256);let a;try{a=O(i)}catch{a={sourceType:"Article",reliabilityTier:"caution",reliabilityNote:"Could not assess reliability automatically.",relevanceNote:s.snippet||"See source for details."}}return{sourceType:a.sourceType||"Article",reliabilityTier:a.reliabilityTier||"caution",reliabilityNote:a.reliabilityNote||"",relevanceNote:a.relevanceNote||""}}function Z(){return`${"https://falling-glitter-0f34.morganjewel01.workers.dev".replace(/\/$/,"")}/serper`}async function ee(s,e=10){const t=Z();let r;if(t)r=await fetch(t,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({q:s,num:e})});else throw new Error("Neither VITE_SERPER_PROXY_URL nor VITE_SERPER_API_KEY is set. Set one in your .env file.");if(!r.ok){const n=await r.text();throw new Error(`Serper API error ${r.status}: ${n}`)}return((await r.json()).organic||[]).map(n=>({title:n.title||"(No title)",link:n.link||"#",snippet:n.snippet||"",displayLink:n.displayLink||n.link||""}))}async function te(s,e=8){const t=await Promise.allSettled(s.map(a=>ee(a,e))),r=new Set,i=[];for(const a of t)if(a.status==="fulfilled")for(const n of a.value)r.has(n.link)||(r.add(n.link),i.push(n));return i}const re=document.getElementById("app");re.innerHTML=`
+Evaluate this source and return the JSON object.`,i=await L([{role:"system",content:t},{role:"user",content:r}],.2,256);let a;try{a=O(i)}catch{a={sourceType:"Article",reliabilityTier:"caution",reliabilityNote:"Could not assess reliability automatically.",relevanceNote:s.snippet||"See source for details."}}return{sourceType:a.sourceType||"Article",reliabilityTier:a.reliabilityTier||"caution",reliabilityNote:a.reliabilityNote||"",relevanceNote:a.relevanceNote||"",thematicSection:a.thematicSection||"General Research"}}function Z(){return`${"https://falling-glitter-0f34.morganjewel01.workers.dev".replace(/\/$/,"")}/serper`}async function ee(s,e=10){const t=Z();let r;if(t)r=await fetch(t,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({q:s,num:e})});else throw new Error("Neither VITE_SERPER_PROXY_URL nor VITE_SERPER_API_KEY is set. Set one in your .env file.");if(!r.ok){const n=await r.text();throw new Error(`Serper API error ${r.status}: ${n}`)}return((await r.json()).organic||[]).map(n=>({title:n.title||"(No title)",link:n.link||"#",snippet:n.snippet||"",displayLink:n.displayLink||n.link||""}))}async function te(s,e=8){const t=await Promise.allSettled(s.map(a=>ee(a,e))),r=new Set,i=[];for(const a of t)if(a.status==="fulfilled")for(const n of a.value)r.has(n.link)||(r.add(n.link),i.push(n));return i}const re=document.getElementById("app");re.innerHTML=`
   <header class="app-header">
     <h1>Research Curator</h1>
     <span class="tagline">AI-powered research for playwrights</span>
@@ -253,4 +253,4 @@ Evaluate this source and return the JSON object.`,i=await L([{role:"system",cont
     <aside class="sidebar" id="sidebar"></aside>
     <section class="main-content" id="main-content"></section>
   </main>
-`;let h=k();const p=new z(document.getElementById("main-content"),{onPacketChange:s=>{h=s,P.setDisabled(h.length===0)}});p.setPacket(h);const P=new G(document.getElementById("export-btn-mount"),{getPacket:()=>h});P.setDisabled(h.length===0);const u=new H(document.getElementById("sidebar"),{onSearch:se});async function se({topic:s,subtopics:e,mediaFilters:t,depth:r}){u.setSearching(!0),u.hideStatus(),p.showProgress("Generating search queries…");try{let i;try{i=await W({topic:s,subtopics:e,mediaFilters:t,depth:r})}catch(l){console.error("Query generation error:",l),u.showStatus(`Could not generate queries: ${l.message}`,!0),p.hideProgress();return}p.setProgressQueries(i),p.updateProgressTitle("Searching the web…");let a;try{a=await te(i,8)}catch(l){console.error("Search error:",l),u.showStatus(`Search failed: ${l.message}`,!0),p.hideProgress();return}if(a.length===0){u.showStatus("No results found for those queries. Try a different topic.",!1),p.hideProgress();return}i.forEach((l,g)=>p.setQueryStatus(g,"done")),p.updateProgressTitle(`Evaluating ${Math.min(a.length,12)} sources…`);const n=a.slice(0,12),o=await Promise.allSettled(n.map(l=>X(l,s))),c=[];o.forEach((l,g)=>{const v=n[g];let y;l.status==="fulfilled"?y=l.value:y={sourceType:"Article",reliabilityTier:"caution",reliabilityNote:"Reliability could not be assessed automatically.",relevanceNote:v.snippet||""};const A=ie(v,i),$={id:ae(),title:v.title,url:v.link,displayLink:v.displayLink,sourceType:y.sourceType,reliabilityTier:y.reliabilityTier,reliabilityNote:y.reliabilityNote,relevanceNote:y.relevanceNote,query:A,addedAt:Date.now()};D($).some(R=>R.id===$.id)&&c.push($)}),h=k(),p.setPacket(h),P.setDisabled(h.length===0),p.hideProgress();const d=c.length;d>0?u.showStatus(`Added ${d} new source${d===1?"":"s"} to your packet.`):u.showStatus("All results were already in your packet. Try a different topic or subtopics.")}catch(i){console.error("Unexpected search error:",i),u.showStatus(`An unexpected error occurred: ${i.message}`,!0),p.hideProgress()}finally{u.setSearching(!1)}}function ie(s,e){if(!e||e.length===0)return"";const t=`${s.title} ${s.link} ${s.snippet}`.toLowerCase();let r=e[0],i=0;for(const a of e){const o=a.toLowerCase().split(/\s+/).filter(c=>c.length>3).reduce((c,d)=>c+(t.includes(d)?1:0),0);o>i&&(i=o,r=a)}return r}function ae(){return`${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`}
+`;let h=k();const p=new z(document.getElementById("main-content"),{onPacketChange:s=>{h=s,P.setDisabled(h.length===0)}});p.setPacket(h);const P=new G(document.getElementById("export-btn-mount"),{getPacket:()=>h});P.setDisabled(h.length===0);const u=new H(document.getElementById("sidebar"),{onSearch:se});async function se({topic:s,subtopics:e,mediaFilters:t,depth:r}){u.setSearching(!0),u.hideStatus(),p.showProgress("Generating search queries…");try{let i;try{i=await W({topic:s,subtopics:e,mediaFilters:t,depth:r})}catch(l){console.error("Query generation error:",l),u.showStatus(`Could not generate queries: ${l.message}`,!0),p.hideProgress();return}p.setProgressQueries(i),p.updateProgressTitle("Searching the web…");let a;try{a=await te(i,8)}catch(l){console.error("Search error:",l),u.showStatus(`Search failed: ${l.message}`,!0),p.hideProgress();return}if(a.length===0){u.showStatus("No results found for those queries. Try a different topic.",!1),p.hideProgress();return}i.forEach((l,g)=>p.setQueryStatus(g,"done")),p.updateProgressTitle(`Evaluating ${Math.min(a.length,12)} sources…`);const n=a.slice(0,12),o=await Promise.allSettled(n.map(l=>X(l,s))),c=[];o.forEach((l,g)=>{const v=n[g];let f;l.status==="fulfilled"?f=l.value:f={sourceType:"Article",reliabilityTier:"caution",reliabilityNote:"Reliability could not be assessed automatically.",relevanceNote:v.snippet||""};const A=ie(v,i),$={id:ae(),title:v.title,url:v.link,displayLink:v.displayLink,sourceType:f.sourceType,reliabilityTier:f.reliabilityTier,reliabilityNote:f.reliabilityNote,relevanceNote:f.relevanceNote,thematicSection:f.thematicSection,query:A,addedAt:Date.now()};D($).some(R=>R.id===$.id)&&c.push($)}),h=k(),p.setPacket(h),P.setDisabled(h.length===0),p.hideProgress();const d=c.length;d>0?u.showStatus(`Added ${d} new source${d===1?"":"s"} to your packet.`):u.showStatus("All results were already in your packet. Try a different topic or subtopics.")}catch(i){console.error("Unexpected search error:",i),u.showStatus(`An unexpected error occurred: ${i.message}`,!0),p.hideProgress()}finally{u.setSearching(!1)}}function ie(s,e){if(!e||e.length===0)return"";const t=`${s.title} ${s.link} ${s.snippet}`.toLowerCase();let r=e[0],i=0;for(const a of e){const o=a.toLowerCase().split(/\s+/).filter(c=>c.length>3).reduce((c,d)=>c+(t.includes(d)?1:0),0);o>i&&(i=o,r=a)}return r}function ae(){return`${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`}
