@@ -1,0 +1,19 @@
+{
+  "name": "research-curator",
+  "version": "1.0.0",
+  "description": "A research curation tool for playwrights and researchers",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "gh-pages": "^6.0.0"
+  }
+}
