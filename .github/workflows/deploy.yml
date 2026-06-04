@@ -27,8 +27,6 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_APERTUS_API_KEY: ${{ secrets.VITE_APERTUS_API_KEY }}
-          VITE_SERPER_API_KEY: ${{ secrets.VITE_SERPER_API_KEY }}
           VITE_SERPER_PROXY_URL: ${{ secrets.VITE_SERPER_PROXY_URL }}
 
       - name: Deploy to GitHub Pages

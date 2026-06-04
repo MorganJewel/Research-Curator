@@ -14,7 +14,8 @@
 const SERPER_DIRECT_URL = 'https://google.serper.dev/search';
 
 function getProxyUrl() {
-  return import.meta.env.VITE_SERPER_PROXY_URL || null;
+  const base = import.meta.env.VITE_SERPER_PROXY_URL;
+  return base ? `${base.replace(/\/$/, '')}/serper` : null;
 }
 
 function getDirectApiKey() {

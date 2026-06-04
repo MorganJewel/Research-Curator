@@ -6,26 +6,18 @@
  *   2. Evaluating and annotating individual search results.
  */
 
-const API_URL = 'https://router.huggingface.co/v1/chat/completions';
 const MODEL = 'meta-llama/Llama-3.1-8B-Instruct';
 
-function getApiKey() {
-  const key = import.meta.env.VITE_APERTUS_API_KEY;
-  if (!key) {
-    throw new Error(
-      'VITE_APERTUS_API_KEY is not set. Add it to your .env file.'
-    );
-  }
-  return key;
+function getProxyUrl() {
+  const base = import.meta.env.VITE_SERPER_PROXY_URL;
+  if (!base) throw new Error('VITE_SERPER_PROXY_URL is not set.');
+  return `${base.replace(/\/$/, '')}/apertus`;
 }
 
 async function callLlama(messages, temperature = 0.4, maxTokens = 512) {
-  const response = await fetch(API_URL, {
+  const response = await fetch(getProxyUrl(), {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getApiKey()}`,
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: MODEL,
       messages,
