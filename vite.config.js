@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/research-curator/',
+  base: '/Research-Curator/',
   build: {
     outDir: 'dist',
     sourcemap: false,
