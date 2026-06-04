@@ -89,21 +89,20 @@ export class ResearchPacket {
       return;
     }
 
-    // Group cards by query
+    // Group cards by thematic section
     const groups = new Map();
     for (const card of this.packet) {
-      const key = card.query || 'General';
+      const key = card.thematicSection || 'General Research';
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(card);
     }
 
     let html = '';
-    for (const [query, cards] of groups) {
+    for (const [section, cards] of groups) {
       html += `
         <div class="result-section">
           <div class="result-section__header">
-            <span class="result-section__icon">🔍</span>
-            <span class="result-section__query">${escapeHtml(query)}</span>
+            <span class="result-section__title">${escapeHtml(section)}</span>
             <span class="result-section__count">${cards.length} source${cards.length === 1 ? '' : 's'}</span>
           </div>
           <div class="result-section__cards">

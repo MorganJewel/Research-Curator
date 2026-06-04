@@ -142,6 +142,7 @@ Return ONLY a JSON object with exactly these keys:
 - reliabilityTier: one of "peer-reviewed", "scholarly", "documentary", "podcast", "primary", "caution"
 - reliabilityNote: one sentence explaining the reliability assessment
 - relevanceNote: 1–2 sentences on why this source is relevant to the playwright's topic
+- thematicSection: a short (2–5 word) thematic label grouping this source by subject area (e.g. "Legal History", "Mechanical Design", "Public Reaction", "Corporate Decisions"). Be consistent — sources about the same theme should get the same label.
 
 No prose outside the JSON.`;
 
@@ -182,5 +183,6 @@ Evaluate this source and return the JSON object.`;
     reliabilityTier: evaluation.reliabilityTier || 'caution',
     reliabilityNote: evaluation.reliabilityNote || '',
     relevanceNote: evaluation.relevanceNote || '',
+    thematicSection: evaluation.thematicSection || 'General Research',
   };
 }

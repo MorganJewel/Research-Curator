@@ -145,6 +145,7 @@ async function handleSearch({ topic, subtopics, mediaFilters, depth }) {
         reliabilityTier: evaluation.reliabilityTier,
         reliabilityNote: evaluation.reliabilityNote,
         relevanceNote: evaluation.relevanceNote,
+        thematicSection: evaluation.thematicSection,
         query,
         addedAt: Date.now(),
       };
